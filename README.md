@@ -1,0 +1,13 @@
+# Generator-ad
+[![Build Status](https://secure.travis-ci.org/mikespencer/generator-ad.png?branch=master)](https://travis-ci.org/mikespencer/generator-ad)
+
+A generator for Yeoman.
+
+## Getting started
+- Make sure you have [yo](https://github.com/yeoman/yo) installed:
+    `npm install -g yo`
+- Install the generator: `npm install -g generator-ad`
+- Run: `yo ad`
+
+## License
+[MIT License](http://en.wikipedia.org/wiki/MIT_License)

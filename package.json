@@ -1,0 +1,37 @@
+{
+  "name": "generator-ad",
+  "version": "0.0.0",
+  "description": "A generator for Yeoman",
+  "keywords": [
+    "yeoman-generator"
+  ],
+  "homepage": "https://github.com/mikespencer/generator-ad",
+  "bugs": "https://github.com/mikespencer/generator-ad/issues",
+  "author": {
+    "name": "Mike Spencer",
+    "email": "mikespencema@gmail.com",
+    "url": "https://github.com/mikespencer"
+  },
+  "main": "app/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/mikespencer/generator-ad.git"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "dependencies": {
+    "yeoman-generator": "~0.12.0"
+  },
+  "devDependencies": {
+    "mocha": "~1.10.0"
+  },
+  "engines": {
+    "node": ">=0.8.0"
+  },
+  "licenses": [
+    {
+      "type": "MIT"
+    }
+  ]
+}

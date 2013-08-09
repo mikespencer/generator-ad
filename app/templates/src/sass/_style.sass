@@ -1,0 +1,17 @@
+@import "compass/reset/utilities"
+@import "compass/css3"
+
+.ad-<%= _.slugify(name) %>-container
+  @include nested-reset
+
+.ad-<%= _.slugify(name) %>-container
+  width: <%= width %>px
+  height: <%= height %>px
+  position: relative
+  margin: 0 auto
+  font-family: helvetica, sans-serif
+  font-size: 14px
+
+  /* CSS3 mixin example: */
+  .dark-shadow
+    @include box-shadow(#000 0 0 5px 1px)
