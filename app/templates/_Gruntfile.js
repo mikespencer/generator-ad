@@ -25,8 +25,8 @@ module.exports = function (grunt) {
         files: [{
           dot: true,
           src: [
-            '<%= yeoman.dist %>/*',
-            '!<%= yeoman.dist %>/.git*'
+            '<%%= yeoman.dist %>/*',
+            '!<%%= yeoman.dist %>/.git*'
           ]
         }]
       },
@@ -41,24 +41,24 @@ module.exports = function (grunt) {
     },
     useminPrepare: {
       options: {
-        dest: '<%= yeoman.dist %>'
+        dest: '<%%= yeoman.dist %>'
       },
-      html: '<%= yeoman.app %>/index.html'
+      html: '<%%= yeoman.app %>/index.html'
     },
     usemin: {
       options: {
-        dirs: ['<%= yeoman.dist %>']
+        dirs: ['<%%= yeoman.dist %>']
       },
-      html: ['<%= yeoman.dist %>/{,*/}*.html'],
-      css: ['<%= yeoman.dist %>/css/{,*/}*.css']
+      html: ['<%%= yeoman.dist %>/{,*/}*.html'],
+      css: ['<%%= yeoman.dist %>/css/{,*/}*.css']
     },
     copy: {
       dist: {
         files: [{
           expand: true,
           dot: true,
-          cwd: '<%= yeoman.app %>',
-          dest: '<%= yeoman.dist %>',
+          cwd: '<%%= yeoman.app %>',
+          dest: '<%%= yeoman.dist %>',
           src: [
             '*.{ico,png,txt}',
             '.htaccess',
@@ -70,15 +70,18 @@ module.exports = function (grunt) {
       styles: {
         expand: true,
         dot: true,
-        cwd: '<%= yeoman.app %>/css',
-        dest: '<%= yeoman.dist %>/css',
+        cwd: '<%%= yeoman.app %>/css',
+        dest: '<%%= yeoman.dist %>/css',
         src: '**/*.css'
       }
     },
     concat: {
       dist: {
         options: {
-          banner: '<!-- AD ID: %eaid! -->\n\n',
+          banner: '<!-- AD ID: %eaid! -->' +
+            ('<%= bug_id %>' ? '\n<!-- BUG ID: <%= bug_id %> -->' : '') +
+            '<!-- <%= width %>x<%= height %> | <%= advertiser %> - <%= name %> -->\n' +
+            '\n\n',
           process: {
             data: {
               clickTracker: '%%CLICK_URL_UNESC%%',
@@ -88,12 +91,12 @@ module.exports = function (grunt) {
           }
         },
         files: {
-          '<%= yeoman.dist %>/dfp.html': '<%= yeoman.dist %>/index.html'
+          '<%%= yeoman.dist %>/dfp.html': '<%%= yeoman.dist %>/index.html'
         }
       },
       dev: {
         options: {
-          banner: '<!DOCTYPE html>\n<html>\n<head>\n  <title><%= pkg.name %>: Test Page</title>\n</head>\n<body>\n\n',
+          banner: '<!DOCTYPE html>\n<html>\n<head>\n  <title><%%= pkg.name %>: Test Page</title>\n</head>\n<body>\n\n',
           footer: '\n\n</body>\n</html>',
           process: {
             data: {
@@ -104,7 +107,7 @@ module.exports = function (grunt) {
           }
         },
         files: {
-          '<%= yeoman.dist %>/index.html': '<%= yeoman.dist %>/index.html'
+          '<%%= yeoman.dist %>/index.html': '<%%= yeoman.dist %>/index.html'
         }
       }
     },
@@ -116,9 +119,9 @@ module.exports = function (grunt) {
         },
         files: [{
           expand: true,
-          cwd: '<%= yeoman.app %>',
+          cwd: '<%%= yeoman.app %>',
           src: '*.html',
-          dest: '<%= yeoman.dist %>'
+          dest: '<%%= yeoman.dist %>'
         }]
       }
     },
@@ -127,12 +130,12 @@ module.exports = function (grunt) {
         src: 'Gruntfile.js'
       },
       src: {
-        src: ['<%= yeoman.app %>/js/*.js']
+        src: ['<%%= yeoman.app %>/js/*.js']
       }
     },
     uglify: {
       options: {
-        sourceMap: '<%= yeoman.dist %>/js/main.map.js'
+        sourceMap: '<%%= yeoman.dist %>/js/main.map.js'
       }
     },
     compass: {
@@ -147,30 +150,27 @@ module.exports = function (grunt) {
         nospawn: true
       },
       build_html: {
-        files: [],
-        tasks: []
+        files: ['<%%= yeoman.app %>/**/*.html'],
+        tasks: ['build']
       },
       build_js: {
-        files: ['<%= yeoman.app %>js/**/*.js'],
-        tasks: ['build_js']
+        files: ['<%%= yeoman.app %>/js/**/*.js'],
+        tasks: ['build']
       },
       build_css: {
-        files: ['<%= yeoman.app %>/sass/**/*.sass'],
-        tasks: ['build_css']
+        files: ['<%%= yeoman.app %>/sass/**/*.sass'],
+        tasks: ['build']
       },
       tests: {
         files: ['test/**/*'],
-        tasks: ['qunit']
+        tasks: ['test']
       },
       livereload: {
         options: {
           livereload: LIVERELOAD_PORT
         },
         files: [
-          '<%= yeoman.dist %>/*.html',
-          '<%= yeoman.dist %>/js/*.js',
-          '<%= yeoman.dist %>/css/*.css',
-          '<%= yeoman.dist %>/img/*'
+          '<%%= yeoman.dist %>/**/*'
         ]
       }
     },
@@ -193,7 +193,7 @@ module.exports = function (grunt) {
     },
     open: {
       server: {
-        path: 'http://localhost:<%= connect.options.port %>'
+        path: 'http://localhost:<%%= connect.options.port %>'
       }
     },
     qunit: {
@@ -201,8 +201,8 @@ module.exports = function (grunt) {
     },
     absolute: {
       dist: {
-        src: '<%= yeoman.dist %>/dfp.html',
-        path: 'wp-adv/test/mstest/grunt-test',
+        src: '<%%= yeoman.dist %>/dfp.html',
+        path: '<%= abs_path %>',
         www: 'http://www.washingtonpost.com',
         css: 'http://css.washingtonpost.com',
         img: 'http://img.wpdigital.net',
@@ -256,7 +256,12 @@ module.exports = function (grunt) {
     grunt.file.write(data.src, $.html());
   })
 
-  grunt.registerTask('default', [
+  grunt.registerTask('default', ['jshint:src', 'build', 'server']);
+
+  grunt.registerTask('test', ['qunit']);
+
+  grunt.registerTask('build', [
+    'jshint:src',
     'clean:dist',
     'compass',
     'useminPrepare',
@@ -269,6 +274,15 @@ module.exports = function (grunt) {
     'concat:dist',
     'concat:dev',
     'absolute:dist'
+  ]);
+
+  grunt.registerTask('server', [
+    //'clean',
+    //'concurrent:server',
+    //'autoprefixer',
+    'connect:livereload',
+    'open',
+    'watch'
   ]);
 
 };

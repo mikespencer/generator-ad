@@ -68,9 +68,6 @@ AdGenerator.prototype.askFor = function askFor() {
 };
 
 AdGenerator.prototype.app = function app() {
-
-  this.mkdir('dist');
-
   this.mkdir('src');
   this.mkdir('src/js');
   this.mkdir('src/js/lib');
@@ -82,13 +79,14 @@ AdGenerator.prototype.app = function app() {
 AdGenerator.prototype.templatefiles = function projectfiles() {
   this.template('_package.json', 'package.json');
   this.template('_bower.json', 'bower.json');
+  this.template('_Gruntfile.js', 'Gruntfile.js');
   this.template('src/_index.html', 'src/index.html');
   this.template('src/js/_main.js', 'src/js/main.js');
   this.template('src/sass/_style.sass', 'src/sass/style.sass');
 }
 
 AdGenerator.prototype.projectfiles = function projectfiles() {
-  this.copy('Gruntfile.js', 'Gruntfile.js');
+  //this.copy('Gruntfile.js', 'Gruntfile.js');
   this.copy('config.rb', 'config.rb');
   this.copy('bowerrc', '.bowerrc');
   this.copy('editorconfig', '.editorconfig');

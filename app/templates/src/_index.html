@@ -3,10 +3,9 @@
 <!--endbuild-->
 
 <div class="ad-<%= _.slugify(name) %>-container">
-  <a hreg="<%%= clickTracker %><%%= clickTag %>">
-    Some clickTag..
+  <a href="<%%= clickTracker %><%%= clickTag %>">
+    <img src="http://www.placehold.it/<%= width %>x<%= height %>" />
   </a>
-  <h1>Ad Unit: <%= name %></h1>
 </div>
 
 <script>
@@ -31,5 +30,5 @@
 </script>
 
 <!--build:js(src) js/main.min.js-->
-<script src="js/main.js"></script>
+<script src="js/main.js" async></script>
 <!--endbuild-->
