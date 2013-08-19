@@ -87,6 +87,7 @@ AdGenerator.prototype.templatefiles = function projectfiles() {
 
 AdGenerator.prototype.projectfiles = function projectfiles() {
   //this.copy('Gruntfile.js', 'Gruntfile.js');
+  this.copy('gitignore', '.gitignore');
   this.copy('config.rb', 'config.rb');
   this.copy('bowerrc', '.bowerrc');
   this.copy('editorconfig', '.editorconfig');
