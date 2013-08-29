@@ -8,8 +8,6 @@ var wpAd = wpAd || {};
     return false;
   }
 
-  wpAd.<%= namespace %> = wpAd.<%= namespace %> || {};
-
   //code here
 
 })(window.jQuery);

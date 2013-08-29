@@ -1,1 +1,0 @@
-function testFunc(){ return false; }

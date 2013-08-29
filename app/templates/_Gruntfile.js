@@ -12,6 +12,9 @@ module.exports = function (grunt) {
   // load all grunt tasks
   require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
 
+  // display time to complete tasks:
+  require('time-grunt')(grunt);
+
   var yeomanConfig = {
     app: 'src',
     dist: 'dist'
@@ -63,7 +66,8 @@ module.exports = function (grunt) {
             '*.{ico,png,txt}',
             '.htaccess',
             'img/{,*/}*.{webp,gif}',
-            'css/fonts/*'
+            'css/fonts/*',
+            'js/main.js'
           ]
         }]
       },
@@ -125,6 +129,31 @@ module.exports = function (grunt) {
         }]
       }
     },
+    rev: {
+      options: {
+        encoding: 'utf8',
+        algorithm: 'md5',
+        length: 8
+      },
+      dist: {
+        files: [{
+          src: [
+            '<%%= yeoman.dist %>/js/main.min.js',
+            '<%%= yeoman.dist %>/css/style.min.css'
+          ]
+        }]
+      }
+    },
+    imagemin: {
+      dist: {
+        files: [{
+          expand: true,
+          cwd: '<%%= yeoman.app %>/',
+          src: ['**/*.{png,jpg,gif}'],
+          dest: '<%%= yeoman.dist %>/'
+        }]
+      }
+    },
     jshint: {
       gruntfile: {
         src: 'Gruntfile.js'
@@ -135,7 +164,7 @@ module.exports = function (grunt) {
     },
     uglify: {
       options: {
-        sourceMap: '<%%= yeoman.dist %>/js/main.map.js'
+        //sourceMap: '<%%= yeoman.dist %>/js/main.map.js'
       }
     },
     compass: {
@@ -144,6 +173,13 @@ module.exports = function (grunt) {
           config: 'config.rb'
         }
       }
+    },
+    concurrent: {
+      dist: [
+        'jshint:src',
+        'compass:dist',
+        'imagemin:dist'
+      ]
     },
     watch: {
       options: {
@@ -261,15 +297,17 @@ module.exports = function (grunt) {
   grunt.registerTask('test', ['qunit']);
 
   grunt.registerTask('build', [
-    'jshint:src',
+    //'jshint:src',
     'clean:dist',
-    'compass',
+    'concurrent:dist',
     'useminPrepare',
     'concat',
     'uglify',
     'cssmin',
     'htmlmin',
     'copy:dist',
+    //'imagemin',
+    'rev:dist',
     'usemin',
     'concat:dist',
     'concat:dev',

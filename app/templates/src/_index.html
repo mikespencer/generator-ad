@@ -17,7 +17,7 @@
     'use strict';
 
     //Ad config
-    wpAd.<%= namespace %>_config = {
+    var config = {
       adid: parseInt('%eaid!', 10) || false,
       clickTracker: '<%%= clickTracker %>',
       clickTrackerEsc: '<%%= clickTrackerEsc %>',
@@ -29,6 +29,6 @@
   })(window.jQuery);
 </script>
 
-<!--build:js(src) js/main.min.js-->
+<!--build:js js/main.min.js-->
 <script src="js/main.js" async></script>
 <!--endbuild-->
