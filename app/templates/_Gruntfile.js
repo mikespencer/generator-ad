@@ -164,12 +164,12 @@ module.exports = function (grunt) {
     },
     uglify: {
       options: {
-        banner: '/* Built <%= grunt.template.today("mm-dd-yyyy") %> */\n'
+        banner: '/* Built <%%= grunt.template.today("mm-dd-yyyy") %> */\n'
       }//,
       /* Uncomment if not using usemin task */
       //dist: {
       //  files: {
-      //    '<%= yeoman.dist %>/js/main.min.js': ['<%= yeoman.app %>/js/lib/Modernizr.min.js', '<%= yeoman.app %>/js/main.js']
+      //    '<%%= yeoman.dist %>/js/main.min.js': ['<%%= yeoman.app %>/js/lib/Modernizr.min.js', '<%%= yeoman.app %>/js/main.js']
       //  }
       //}
     },
@@ -183,12 +183,12 @@ module.exports = function (grunt) {
     /* Uncomment if not using usemin task */
     //cssmin: {
     //  options: {
-    //    banner: '/* Built <%= grunt.template.today("mm-dd-yyyy") %> */',
+    //    banner: '/* Built <%%= grunt.template.today("mm-dd-yyyy") %> */',
     //    report: 'gzip'
     //  },
     //  dist: {
     //    files: {
-    //      '<%= yeoman.dist %>/css/style.min.css': ['<%= yeoman.app %>/css/style.css']
+    //      '<%%= yeoman.dist %>/css/style.min.css': ['<%%= yeoman.app %>/css/style.css']
     //    }
     //  }
     //},
