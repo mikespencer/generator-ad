@@ -84,7 +84,7 @@ module.exports = function (grunt) {
         options: {
           banner: '<!-- AD ID: %eaid! -->' +
             ('<%= bug_id %>' ? '\n<!-- BUG ID: <%= bug_id %> -->' : '') +
-            '<!-- <%= width %>x<%= height %> | <%= advertiser %> - <%= name %> -->\n' +
+            '\n<!-- <%= width %>x<%= height %> | <%= advertiser %> - <%= name %> -->' +
             '\n\n',
           process: {
             data: {
@@ -164,8 +164,14 @@ module.exports = function (grunt) {
     },
     uglify: {
       options: {
-        //sourceMap: '<%%= yeoman.dist %>/js/main.map.js'
-      }
+        banner: '/* Built <%= grunt.template.today("mm-dd-yyyy") %> */\n'
+      }//,
+      /* Uncomment if not using usemin task */
+      //dist: {
+      //  files: {
+      //    '<%= yeoman.dist %>/js/main.min.js': ['<%= yeoman.app %>/js/lib/Modernizr.min.js', '<%= yeoman.app %>/js/main.js']
+      //  }
+      //}
     },
     compass: {
       dist: {
@@ -174,6 +180,18 @@ module.exports = function (grunt) {
         }
       }
     },
+    /* Uncomment if not using usemin task */
+    //cssmin: {
+    //  options: {
+    //    banner: '/* Built <%= grunt.template.today("mm-dd-yyyy") %> */',
+    //    report: 'gzip'
+    //  },
+    //  dist: {
+    //    files: {
+    //      '<%= yeoman.dist %>/css/style.min.css': ['<%= yeoman.app %>/css/style.css']
+    //    }
+    //  }
+    //},
     concurrent: {
       dist: [
         'jshint:src',
@@ -289,6 +307,9 @@ module.exports = function (grunt) {
       }
     });
 
+    //remove testing elements:
+    $('.dev-element').remove();
+
     grunt.file.write(data.src, $.html());
   })
 
@@ -322,5 +343,23 @@ module.exports = function (grunt) {
     'open',
     'watch'
   ]);
+
+  grunt.registerTask('push', 'Copy files to production build', function(target){
+    if(target === 'prod'){
+      //path to copy files to:
+      var prod = '/ENTER/YOUR/PROD/PATH/HERE';
+      //clean out old files
+      var preClean = 'rm -rf ' + prod;
+      //copy the ./dist dir
+      var copy = 'cp -R ./dist ' + prod;
+      //remove unnecessary files
+      var postClean = 'rm -rf ' + prod + '/*.html ' + prod + '/img';
+
+      console.log('Copying ./dist to ' + prod);
+
+      exec([preClean, copy, postClean].join(' && '));
+    }
+  });
+
 
 };
