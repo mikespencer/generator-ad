@@ -181,17 +181,17 @@ module.exports = function (grunt) {
       }
     },
     /* Uncomment if not using usemin task */
-    //cssmin: {
-    //  options: {
-    //    banner: '/* Built <%%= grunt.template.today("mm-dd-yyyy") %> */',
-    //    report: 'gzip'
-    //  },
-    //  dist: {
+    cssmin: {
+      options: {
+        banner: '/* Built <%%= grunt.template.today("mm-dd-yyyy") %> */',
+        report: 'gzip'
+      }
+    //  ,dist: {
     //    files: {
     //      '<%%= yeoman.dist %>/css/style.min.css': ['<%%= yeoman.app %>/css/style.css']
     //    }
     //  }
-    //},
+    },
     concurrent: {
       dist: [
         'jshint:src',
@@ -343,23 +343,5 @@ module.exports = function (grunt) {
     'open',
     'watch'
   ]);
-
-  grunt.registerTask('push', 'Copy files to production build', function(target){
-    if(target === 'prod'){
-      //path to copy files to:
-      var prod = '/ENTER/YOUR/PROD/PATH/HERE';
-      //clean out old files
-      var preClean = 'rm -rf ' + prod;
-      //copy the ./dist dir
-      var copy = 'cp -R ./dist ' + prod;
-      //remove unnecessary files
-      var postClean = 'rm -rf ' + prod + '/*.html ' + prod + '/img';
-
-      console.log('Copying ./dist to ' + prod);
-
-      exec([preClean, copy, postClean].join(' && '));
-    }
-  });
-
 
 };
