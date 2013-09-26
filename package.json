@@ -1,9 +1,12 @@
 {
   "name": "generator-ad",
-  "version": "0.1.51",
-  "description": "A generator for Yeoman",
+  "version": "0.1.6",
+  "description": "A generator for Yeoman. Creates a starting point and development workflow for creating a DFP custom ad template or execution.",
   "keywords": [
-    "yeoman-generator"
+    "yeoman-generator",
+    "dfp",
+    "ad",
+    "template"
   ],
   "homepage": "https://github.com/mikespencer/generator-ad",
   "bugs": "https://github.com/mikespencer/generator-ad/issues",

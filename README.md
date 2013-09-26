@@ -1,6 +1,7 @@
 # Generator-ad
 
-A generator for Yeoman.
+A generator for Yeoman. Creates a starting point and development workflow for creating a DFP custom
+    ad template or execution.
 
 ## Getting started
 - Make sure you have [yo](https://github.com/yeoman/yo) installed:
