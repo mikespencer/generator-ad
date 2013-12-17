@@ -1,6 +1,6 @@
 {
   "name": "generator-ad",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "A generator for Yeoman. Creates a starting point and development workflow for creating a DFP custom ad template or execution.",
   "keywords": [
     "yeoman-generator",

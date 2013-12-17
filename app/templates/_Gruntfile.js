@@ -267,7 +267,7 @@ module.exports = function (grunt) {
 
   grunt.registerMultiTask('absolute', 'Make URLs absolute', function(){
 
-    console.log('Transforming relative URL\'s --> absolute URL\'s for: ' + this.data.src);
+    grunt.log.write('Transforming relative URL\'s --> absolute URL\'s for: ' + this.data.src);
 
     var data = this.data;
     var src = data.src;
@@ -313,12 +313,11 @@ module.exports = function (grunt) {
     grunt.file.write(data.src, $.html());
   })
 
-  grunt.registerTask('default', ['jshint:src', 'build', 'server']);
+  grunt.registerTask('default', ['jshint:src', 'build', 'serve']);
 
   grunt.registerTask('test', ['qunit']);
 
   grunt.registerTask('build', [
-    //'jshint:src',
     'clean:dist',
     'concurrent:dist',
     'useminPrepare',
@@ -327,7 +326,6 @@ module.exports = function (grunt) {
     'cssmin',
     'htmlmin',
     'copy:dist',
-    //'imagemin',
     'rev:dist',
     'usemin',
     'concat:dist',
@@ -335,13 +333,15 @@ module.exports = function (grunt) {
     'absolute:dist'
   ]);
 
-  grunt.registerTask('server', [
-    //'clean',
-    //'concurrent:server',
-    //'autoprefixer',
+  grunt.registerTask('serve', [
     'connect:livereload',
     'open',
     'watch'
   ]);
+
+  grunt.registerTask('server', function () {
+    grunt.log.warn('The `server` task has been deprecated. Use `grunt serve` to start a server.');
+    grunt.task.run(['serve']);
+  });
 
 };
